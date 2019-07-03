@@ -4,7 +4,7 @@ const (
 	_XL = "xl/"
 	// 所有的值汇总
 	_SharedStringPath = "xl/sharedStrings.xml"
-	// Resource(例如Sheet)和rId的关系定义
+	// Resource(SHeet)
 	_WorkBookRels = "xl/_rels/workbook.xml.rels"
 	// 找个各个sheet的名字的地方
 	_WorkBookPath = "xl/workbook.xml"
