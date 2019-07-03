@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	excel "github.com/szyhf/go-excel"
+	excel "github.com/n1kx/go-excel"
 )
 
 // defined a struct

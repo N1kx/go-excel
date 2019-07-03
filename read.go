@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	twentysix "github.com/szyhf/go-excel/internal/twenty_six"
+	twentysix "github.com/n1kx/go-excel/internal/twenty_six"
 
 	convert "github.com/szyhf/go-convert"
 )

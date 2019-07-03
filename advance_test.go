@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
+	excel "github.com/n1kx/go-excel"
 	convert "github.com/szyhf/go-convert"
-	excel "github.com/szyhf/go-excel"
 )
 
 var expectAdvanceList = []Advance{
