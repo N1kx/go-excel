@@ -8,4 +8,13 @@ type xlsxC struct {
 	R string `xml:"r,attr"`           // Cell ID, e.g. A1
 	T string `xml:"t,attr,omitempty"` // Type.
 	V string `xml:"v,omitempty"`      // Value
+	Style        int     `xml:"s,attr"`
+}
+
+//New xlsxRow to get one row
+type xlsxRow struct {
+	Ht           string 	`xml:"ht,attr"`
+	CustomHeight string 	`xml:"customHeight,attr"`
+	C            []xlsxC    `xml:"c"`
+	R            string 	`xml:"r,attr"`
 }

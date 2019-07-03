@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/szyhf/go-excel/internal/twenty_six"
+	twentysix "github.com/szyhf/go-excel/internal/twenty_six"
 
 	convert "github.com/szyhf/go-convert"
 )
@@ -152,6 +152,86 @@ func (rd *read) readToStruct(t reflect.Type, v reflect.Value) error {
 	return err
 }
 
+// func (rd *read) readRow(s *schema, v reflect.Value)) {
+// 	fieldsMap, err := rd.title.MapToFields(s)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	scaned := false
+
+// 	defer func() {
+// 		if !scaned && err == nil {
+// 			err = ErrEmptyRow
+// 		}
+// 	}()
+
+// 	isV := false
+
+// 	for t, e := rd.decoder.Token(); e == nil; t, e = rd.decoder.Token() {
+// 		switch token := t.(type) {
+// 			case xml.StartElement:
+// 				if token.Name.Local == "row" {
+// 					r := xlsxRow{}
+// 					rows = append(rows, []string{})
+
+// 					decoder.DecodeElement(&r, &token)
+// 					rows = append(rows, []string{})
+
+// 					for idx, colCell := range r.C {
+// 						// val, err := f.getValueFrom(d, &colCell)
+// 						// if err != nil {
+// 						// 	return nil, err
+// 						// }
+// 						// cr = len(rows) - 1
+// 						// rows[cr] = append(rows[cr], val)
+// 					}
+
+// 					// row := x.parseRow(decoder, &startElement)
+// 					// if len(row.Cells) < 1 && row.Error == nil {
+// 					// 	continue
+// 					// }
+// 					// ch <- row
+// 				}
+// 		}
+// 	}
+// }
+
+// func (rd *read) getCellValue(r xlsxC) (string, error) {
+// 	if r.Type == "inlineStr" {
+// 		if r.InlineString == nil {
+// 			return "", fmt.Errorf("Cell had type of InlineString, but the InlineString attribute was missing")
+// 		}
+// 		return *r.InlineString, nil
+// 	}
+
+// 	if r.V == nil {
+// 		return ""
+// 	}
+
+// 	if r.T == "s" {
+// 		index, err := strconv.Atoi(*r.Value)
+// 		if err != nil {
+// 			return "", err
+// 		}
+// 		if len(x.sharedStrings) <= index {
+// 			return "", fmt.Errorf("Attempted to index value %d in shared strings of length %d",
+// 				index, len(x.sharedStrings))
+// 		}
+
+// 		return x.sharedStrings[index], nil
+// 	}
+
+// 	if x.dateStyles[r.Style] && r.Type != "d" {
+// 		formattedDate, err := convertExcelDateToDateString(*r.Value)
+// 		if err != nil {
+// 			return "", err
+// 		}
+// 		return formattedDate, nil
+// 	}
+
+// 	return *r.Value, nil
+// }
+
 // v should be value of map[string]string
 func (rd *read) readToMap(t reflect.Type, v reflect.Value) error {
 	if v.Kind() == reflect.Ptr {
@@ -237,13 +317,18 @@ func (rd *read) readToValue(s *schema, v reflect.Value) (err error) {
 				break
 			}
 
-			var valStr string
+			valStr := ""
 			if tempCell.T == _S {
 				// get string from shared
 				valStr = rd.connecter.getSharedString(convert.MustInt(string(token)))
-			} else {
-				valStr = string(token)
 			}
+			//else {
+			// if tempCell.V == nil {
+			// 	if token != nil {
+			// 		valStr = string(token)
+			// 	}
+			// }
+			//}
 			// println("Key:", trimedColumnName, "Val:", valStr)
 			scaned = true
 			isV = false
